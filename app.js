@@ -61,24 +61,26 @@ function selectTest(test){
  $('start-test').disabled=!test.available;$('start-test').textContent=test.available?'НАЧАТЬ ТЕСТ':'ТЕСТ ГОТОВИТСЯ';$('test-title').focus();reveal($('enrollment'));beep();
 }
 $('selection-back').onclick=()=>showSelection(true);
-for(const id of ['employee-number','identification-code'])$(id).addEventListener('input',()=>$(id).setCustomValidity(''));
+for(const id of ['employee-number','identification-code','test-access-key'])$(id).addEventListener('input',()=>$(id).setCustomValidity(''));
 $('employee-form').addEventListener('submit',async event=>{
  event.preventDefault();if(!selectedTest?.available)return;
- for(const id of ['employee-number','identification-code']){const field=$(id);field.setCustomValidity(field.value.trim()?'':'Заполните это поле.');}
+ for(const id of ['employee-number','identification-code','test-access-key']){const field=$(id);field.setCustomValidity(field.value.trim()?'':'Заполните это поле.');}
  if(!$('employee-form').reportValidity())return;
  if($('start-test').disabled)return;
  $('start-test').disabled=true;
+ const identity={number:$('employee-number').value.trim(),code:$('identification-code').value.trim()},test=selectedTest;
+ let admission;
  try{
-  const response=await window.terminalFetch('/api/attempt-status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({identificationCode:$('identification-code').value.trim(),testCode:selectedTest.code}),signal:AbortSignal.timeout(15000)});
-  const result=await response.json();
+  const response=await window.terminalFetch('/api/attempt-status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({employeeNumber:identity.number,identificationCode:identity.code,testCode:test.code,accessKey:$('test-access-key').value.trim()}),signal:AbortSignal.timeout(15000)});
+  const result=await response.json();admission=result;
   if(!response.ok||!result.allowed)throw new Error(result.error||'Попытка уже завершена. Обратитесь к администратору для повторного допуска.');
  }catch(error){$('enrollment-status').textContent=error.message;return;}finally{$('start-test').disabled=false;}
- if(screen!=='enrollment')return;
+ if(screen!=='enrollment'||selectedTest!==test)return;
 
- employee={number:$('employee-number').value.trim(),code:$('identification-code').value.trim()};
+ employee=identity;examSession=admission.sessionToken;submissionId=admission.submissionId;$('test-access-key').value='';
  $('participant').textContent='СОТРУДНИК: '+employee.number+' / ИДЕНТИФИКАЦИОННЫЙ КОД: '+employee.code;
  document.querySelector('.status-strip span:last-child').textContent='СОЗ / ГА · ГК';document.querySelector('footer>span:last-child').textContent='1–5: ВЫБОР / ENTER: ПОДТВЕРДИТЬ';
- submissionId=null;records.fill(null);index=0;selected=null;render(true);beep();
+ records.fill(null);index=0;selected=null;render(true);beep();
 });
 
 // Motion never delays input or changes quiz state. Repeated transitions are cancellable.
