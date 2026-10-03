@@ -18,7 +18,7 @@ function addSubmissionControls(container){
   clearTimeout(timer);busy=true;attempt++;retry.hidden=true;status.textContent='Сохранение результата… Не закрывайте страницу.';
   try{
    const r=await window.terminalFetch('/api/submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:AbortSignal.timeout(15000)});
-   const result=await r.json();if(result.code==='attempt_locked'){received=true;window.removeEventListener('beforeunload',warn);window.removeEventListener('online',online);notice.textContent=result.error;status.textContent='Ранее сохранённый результат остаётся у инструктора.';retry.hidden=true;return;}if(!r.ok||!result.received)throw new Error(result.error||'Ошибка отправки.');
+   const result=await r.json();if(result.code==='attempt_locked'){notice.textContent='Эта отправка ещё не сохранена.';status.textContent=result.error+' Не закрывайте страницу. После разрешения инструктора нажмите «ПОВТОРИТЬ ОТПРАВКУ».';retry.hidden=false;return;}if(!r.ok||!result.received)throw new Error(result.error||'Ошибка отправки.');
    received=true;window.removeEventListener('beforeunload',warn);window.removeEventListener('online',online);
    if(!area.isConnected)return;
    if(Number.isInteger(result.score)&&$('result-score'))$('result-score').textContent=`${result.score} / ${result.total}`;
