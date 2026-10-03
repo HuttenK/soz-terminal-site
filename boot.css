@@ -1,0 +1,30 @@
+.screen:has(.boot:not([hidden])){background:#090d10}
+.boot-sequence{isolation:isolate;position:relative;min-height:684px;overflow:hidden;margin:-30px -34px;padding:45px 28px;color:#d4f4ff;background:radial-gradient(ellipse at 50% 43%,#2b384152 0,#171e25 28%,#080d11 73%);text-shadow:0 0 12px #a6e7ff70}
+.boot-sequence:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(0deg,#b8dded06 0 1px,transparent 1px 3px),radial-gradient(ellipse,transparent 40%,#0009 100%)}
+.boot-emblem{width:min(410px,65vw);aspect-ratio:1;position:relative;display:grid;place-items:center;margin:0 auto -30px;animation:ident-on 1.25s ease-out both}
+.boot-sequence .boot-logo{width:48%;height:48%;margin:0;filter:brightness(0) invert(94%) sepia(11%) saturate(508%) hue-rotate(155deg) drop-shadow(0 0 13px #98dbffc0);animation:logo-resolve 1.8s ease-out both}
+.signal-orbits{position:absolute;inset:4%;perspective:700px;opacity:.65;filter:drop-shadow(0 0 5px #b0daff66)}
+.signal-orbits i{display:block;position:absolute;inset:0;border:2px solid #cee9f142;border-top:4px solid #e9fbffb0;border-right-color:transparent;border-radius:50%;animation:signal-one 6s linear infinite}
+.signal-orbits i:nth-child(2){inset:5%;border-color:#c8dfef36;border-left:4px solid #b4e0ffd0;animation:signal-two 7s linear infinite reverse}
+.signal-orbits i:nth-child(3){inset:10%;border:1px solid #a0c6d655;border-bottom:3px solid #f0ffffa0;animation:signal-three 9s linear infinite}
+.boot-titles{z-index:1;max-width:900px;animation:caption-resolve 1.2s .7s both}
+.boot-sequence h1{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:bold;letter-spacing:.015em;font-size:clamp(1.5rem,3.2vw,2.75rem);line-height:1.25;min-height:0;margin:0 0 16px;color:#f0fbff;text-shadow:0 0 7px #d2f2ff99,2px 2px #05090d}
+.boot-motto{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:bold;font-size:clamp(1rem,1.65vw,1.4rem);line-height:1.5;margin:0;color:#d3e7ee;text-wrap:balance}
+.boot-sequence .boot-log{font-size:.75rem;letter-spacing:.09em;min-height:22px;margin-top:35px;color:#89bbd1;text-shadow:none}
+.boot-sequence .boot-track{width:min(350px,80%);height:7px;border-color:#436275;margin:15px 0 18px;background:#050b11}
+.boot-sequence .boot-track span{background:repeating-linear-gradient(90deg,#a8d9f0 0 4%,transparent 4% 5%);box-shadow:0 0 10px #82c8f033}
+.boot-sequence .text-button{font-size:.75rem;color:#8eb3c5;z-index:2}.boot-sweep{position:absolute;left:0;right:0;top:-20%;height:18%;pointer-events:none;background:linear-gradient(transparent,#c5eeff06,transparent);animation:boot-scan 4s linear infinite}
+@keyframes signal-one{from{transform:rotateZ(-30deg) rotateX(62deg) rotateZ(0)}to{transform:rotateZ(-30deg) rotateX(62deg) rotateZ(360deg)}}
+@keyframes signal-two{from{transform:rotateZ(48deg) rotateX(67deg) rotateZ(0)}to{transform:rotateZ(48deg) rotateX(67deg) rotateZ(360deg)}}
+@keyframes signal-three{from{transform:rotateZ(-72deg) rotateX(52deg) rotateZ(0)}to{transform:rotateZ(-72deg) rotateX(52deg) rotateZ(360deg)}}
+@keyframes ident-on{0%{opacity:0;transform:scale(.6,.03)}30%{opacity:.6;transform:scale(.85,.06)}65%{opacity:.8;transform:scale(1.02)}100%{opacity:1;transform:scale(1)}}
+@keyframes logo-resolve{0%{opacity:0;filter:blur(8px) brightness(2)}45%{opacity:.4}70%{opacity:.85}100%{opacity:1}}
+@keyframes caption-resolve{from{opacity:0;transform:translateY(8px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes boot-scan{to{top:110%}}
+@media(max-width:900px){.boot-sequence{margin:-24px -22px}}
+@media(max-width:650px){.boot-sequence{margin:-22px -16px;padding:40px 22px;min-height:80svh}.boot-emblem{width:75vw;max-width:330px;margin-bottom:5px}.boot-sequence .boot-log{font-size:.65rem;line-height:1.6}.boot-sequence h1{font-size:1.8rem}.boot-motto{font-size:1.1rem}.boot-titles{max-width:100%}}
+@media(prefers-reduced-motion:reduce){.boot-sequence *{animation:none!important;transition:none!important}.boot-sweep{display:none}.signal-orbits i{transform:rotateZ(-30deg) rotateX(62deg)}.signal-orbits i:nth-child(2){transform:rotateZ(48deg) rotateX(67deg)}.signal-orbits i:nth-child(3){transform:rotateZ(-72deg) rotateX(52deg)}}
+
+.boot-start{position:relative;z-index:2;margin:14px auto 4px;padding:12px 22px;border:1px solid #a8d9f0;background:#a8d9f0;color:#10212c;font:inherit;font-size:.8rem;letter-spacing:.08em;cursor:pointer}.boot-start:focus-visible{outline:2px solid #fff;outline-offset:5px}
+
+.welcome-logo{width:180px;height:180px;margin:0 auto 28px}.welcome-screen .authorize-button{font-size:clamp(1rem,3vw,1.4rem);padding:22px 42px;margin-top:30px;min-height:68px;max-width:100%;box-shadow:0 0 32px #a8d9f018;transition:background .2s,box-shadow .2s}.authorize-button:hover{background:#c4eaff;box-shadow:0 0 38px #a8d9f032}

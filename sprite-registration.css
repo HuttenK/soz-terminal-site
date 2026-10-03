@@ -1,0 +1,24 @@
+/* Frame registration compensates for offsets in generated pose sheets. */
+.art-frame .sprite-sheet{clip-path:inset(0 50% 50% 0)}
+.art-frame .sprite-sheet[data-scene="1"]{animation-name:registered-1}
+@keyframes registered-1{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-50.000000%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(0.000000%,-50.000000%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-50.000000%,-50.000000%);clip-path:inset(50% 0 0 50%)}}
+.art-frame .sprite-sheet[data-scene="2"]{animation-name:registered-2}
+@keyframes registered-2{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-49.760766%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(-0.079745%,-47.767145%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-49.681021%,-47.687400%);clip-path:inset(50% 0 0 50%)}}
+.art-frame .sprite-sheet[data-scene="3"]{animation-name:registered-3}
+@keyframes registered-3{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-50.000000%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(0.000000%,-50.000000%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-50.000000%,-50.000000%);clip-path:inset(50% 0 0 50%)}}
+.art-frame .sprite-sheet[data-scene="4"]{animation-name:registered-4}
+@keyframes registered-4{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-50.000000%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(0.000000%,-50.000000%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-50.000000%,-50.000000%);clip-path:inset(50% 0 0 50%)}}
+.art-frame .sprite-sheet[data-scene="5"]{animation-name:registered-5}
+@keyframes registered-5{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-50.000000%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(0.000000%,-50.000000%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-49.920255%,-50.000000%);clip-path:inset(50% 0 0 50%)}}
+.art-frame .sprite-sheet[data-scene="6"]{animation-name:registered-6}
+@keyframes registered-6{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-49.681021%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(-0.159490%,-46.172249%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-49.760766%,-46.172249%);clip-path:inset(50% 0 0 50%)}}
+.art-frame .sprite-sheet[data-scene="7"]{animation-name:registered-7}
+@keyframes registered-7{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-50.000000%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(0.000000%,-50.000000%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-50.000000%,-50.000000%);clip-path:inset(50% 0 0 50%)}}
+.art-frame .sprite-sheet[data-scene="8"]{animation-name:registered-8}
+@keyframes registered-8{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-50.000000%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(0.000000%,-50.000000%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-50.000000%,-50.000000%);clip-path:inset(50% 0 0 50%)}}
+.art-frame .sprite-sheet[data-scene="9"]{animation-name:registered-9}
+@keyframes registered-9{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-49.122807%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(0.000000%,-48.006380%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-49.122807%,-47.926635%);clip-path:inset(50% 0 0 50%)}}
+.art-frame .sprite-sheet[data-scene="10"]{animation-name:registered-10}
+@keyframes registered-10{0%,100%{transform:translate(0.000000%,0.000000%);clip-path:inset(0 50% 50% 0)}25%{transform:translate(-48.405104%,0.000000%);clip-path:inset(0 0 50% 50%)}50%{transform:translate(0.000000%,-47.448166%);clip-path:inset(50% 50% 0 0)}75%{transform:translate(-48.405104%,-47.527911%);clip-path:inset(50% 0 0 50%)}}
+.no-crt .art-frame .sprite-sheet{animation:none;transform:none;clip-path:inset(0 50% 50% 0)}
+@media(prefers-reduced-motion:reduce){.art-frame .sprite-sheet{animation:none;transform:none;clip-path:inset(0 50% 50% 0)}}
