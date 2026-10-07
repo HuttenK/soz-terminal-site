@@ -43,19 +43,23 @@ async function loadCertifications(){
    const meta=progressNode('div','certification-meta');meta.append(progressNode('strong','',String(course.attendees)),progressNode('span','',progressPlural(course.attendees,['УЧАСТНИК','УЧАСТНИКА','УЧАСТНИКОВ'])),progressNode('small','',course.stages.length+' '+progressPlural(course.stages.length,['ЭТАП','ЭТАПА','ЭТАПОВ'])));
    const arrow=progressNode('span','expand-arrow','+');arrow.setAttribute('aria-hidden','true');summary.append(icon,title,meta,arrow);
    const panel=progressNode('div','certification-body');
-   const search=progressNode('form','roster-search'),label=progressNode('label','','Найти сотрудника'),input=progressNode('input');
-   input.placeholder='Номер сотрудника';input.maxLength=100;input.type='search';label.append(input);
-   const find=progressNode('button','','НАЙТИ');search.append(label,find);
    const roster=progressNode('div','roster'),message=progressNode('p','roster-status');message.setAttribute('role','status');
-   const pagination=progressNode('div','roster-pagination'),prev=progressNode('button','','← НАЗАД'),next=progressNode('button','','ДАЛЕЕ →'),page=progressNode('span');
-   prev.type=next.type='button';pagination.append(prev,page,next);panel.append(search,message,roster,pagination);card.append(summary,panel);$('certification-list').append(card);
-   let offset=0,loaded=false,requestId=0;
+   panel.append(message,roster);card.append(summary,panel);$('certification-list').append(card);
+   let loaded=false,loading=false;
    async function loadRoster(){
-    const local=++requestId;message.textContent='Загрузка участников…';roster.replaceChildren();prev.disabled=next.disabled=true;
+    if(loading)return;loading=true;message.textContent='Загрузка участников…';roster.replaceChildren();
     try{
-     const result=await progressRequest('/api/progression?'+new URLSearchParams({code:test.code,search:input.value.trim(),offset}));
-     if(local!==requestId||run!==progressionRun)return;loaded=true;
-     message.textContent=result.total?'Найдено: '+result.total:input.value.trim()?'Сотрудники с таким номером не найдены.':'Пока нет участников. Инструктор добавит их в реестр.';
+     const result=await progressRequest('/api/progression?'+new URLSearchParams({code:test.code}));
+     if(run!==progressionRun)return;
+     let more=result.hasMore,offset=result.items.length;
+     while(more){
+      const page=await progressRequest('/api/progression?'+new URLSearchParams({code:test.code,offset}));
+      if(run!==progressionRun)return;
+      if(page.course.version!==result.course.version)throw Error('Этапы обновились. Откройте список повторно.');
+      result.items.push(...page.items);offset+=page.items.length;more=page.hasMore;
+     }
+     loaded=true;
+     message.textContent=result.items.length?'Все участники: '+result.items.length:'Пока нет участников. Инструктор добавит их в реестр.';
      result.items.forEach(person=>{
       const row=progressNode('article','person-progress'),head=progressNode('div','person-heading'),done=person.completed.length,total=result.course.stages.length;
       head.append(progressNode('h3','','Сотрудник '+person.employeeNumber),progressNode('span',done===total?'completion-badge complete':'completion-badge',done===total?'ОБУЧЕНИЕ ЗАВЕРШЕНО':done+' / '+total+' ЭТАПОВ'));
@@ -68,12 +72,10 @@ async function loadCertifications(){
       const date=progressNode('small','progress-updated','Обновлено: '+new Date(person.updatedAt).toLocaleString('ru-RU'));
       row.append(head,stages,date);roster.append(row);
      });
-     page.textContent='Страница '+(offset/50+1);pagination.hidden=result.total<=50;prev.disabled=offset===0;next.disabled=!result.hasMore;
-    }catch(error){if(local===requestId&&run===progressionRun){message.textContent='Не удалось загрузить участников. '+error.message;loaded=false;pagination.hidden=true;}}
+    }catch(error){if(run===progressionRun){message.textContent='Не удалось загрузить участников. '+error.message+' Закройте и откройте список, чтобы повторить.';loaded=false;}}
+    finally{loading=false;}
    }
    card.addEventListener('toggle',()=>{if(card.open&&!loaded)loadRoster();});
-   search.onsubmit=e=>{e.preventDefault();offset=0;loadRoster();};
-   prev.onclick=()=>{offset=Math.max(0,offset-50);loadRoster();};next.onclick=()=>{offset+=50;loadRoster();};
   });
   $('progression-status').textContent='';reveal($('certification-list'));
  }catch(error){if(run===progressionRun)$('progression-status').textContent='Не удалось загрузить реестр. '+error.message+' Нажмите «Обновить».';}
