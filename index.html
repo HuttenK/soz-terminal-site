@@ -5,8 +5,8 @@
   <title>СОЗ / Терминал сертификации</title>
   <meta name="description" content="Учебный терминал сертификации СОЗ: охрана ГА/ГК, эвакуация и работа с лоялистами.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230d1c27'/%3E%3Cpath d='M7 8h18v3H10v10h15v3H7z' fill='%23abd9ed'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="boot.css"><link rel="stylesheet" href="polish.css"><link rel="stylesheet" href="sprite-registration.css">
-  <script src="api-config.js" defer></script><script src="audio.js" defer></script><script src="questions.js" defer></script><script src="app.js" defer></script><script src="submissions.js" defer></script>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="boot.css"><link rel="stylesheet" href="polish.css"><link rel="stylesheet" href="sprite-registration.css"><link rel="stylesheet" href="progression.css?v=20261007-1">
+  <script src="api-config.js" defer></script><script src="audio.js" defer></script><script src="questions.js" defer></script><script src="catalog.js?v=20261007-1" defer></script><script src="app.js?v=20261007-1" defer></script><script src="submissions.js" defer></script><script src="progression.js?v=20261007-1" defer></script>
 </head>
 <body>
  <div class="case">
@@ -25,8 +25,27 @@
    <div id="terminal" hidden>
     <header><div class="brand"><img class="combine" src="assets/combine.svg" alt="Альянс"><div>СОЗ<span>СЕРТИФИКАЦИЯ ЛИЧНОГО СОСТАВА</span></div></div><div class="tools"><button id="sound" aria-pressed="true">ЗВУК: ВКЛ</button><button id="motion" aria-pressed="true">ЭЛТ: ВКЛ</button></div></header>
     <div class="status-strip"><span id="mode-label">ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР</span><span>МОДУЛЬ 01 / ГА · ГК</span></div>
+    <section id="home" class="home-menu" hidden>
+     <p class="eyebrow">АКАДЕМИЯ НАДЗОРА / СЕКТОР-2</p>
+     <h1 id="home-title" tabindex="-1">Подготовка личного состава</h1>
+     <p class="instruction">От обучения — к сертификации. Выберите раздел терминала.</p>
+     <div class="module-grid">
+      <button id="open-progression" class="module-card"><span class="module-number">01 / РЕЕСТР ОБУЧЕНИЯ</span><span class="module-art cert-icon icon-6" aria-hidden="true"></span><strong>Прогрессия</strong><span class="module-description">Сертификации, участники и пройденные этапы подготовки.</span><span class="module-link">ОТКРЫТЬ РЕЕСТР <span aria-hidden="true">↗</span></span></button>
+      <button id="open-testing" class="module-card"><span class="module-number">02 / АТТЕСТАЦИЯ</span><span class="module-art cert-icon icon-5" aria-hidden="true"></span><strong>Тестирование</strong><span class="module-description">Выбор теста и прохождение по допуску инструктора.</span><span class="module-link">ВЫБРАТЬ ТЕСТ <span aria-hidden="true">↗</span></span></button>
+     </div>
+     <p class="home-note"><span class="signal-dot" aria-hidden="true"></span> 9 СЕРТИФИКАЦИЙ <span>·</span> ЕДИНЫЙ РЕЕСТР ПОДГОТОВКИ</p>
+    </section>
+    <section id="progression" class="progression-view" hidden>
+     <button class="text-button home-back">← ГЛАВНОЕ МЕНЮ</button>
+     <p class="eyebrow">РЕЕСТР ПОДГОТОВКИ</p>
+     <h1 id="progression-title" tabindex="-1">Прогрессия</h1>
+     <p class="instruction">Откройте сертификацию, чтобы увидеть участников и пройденные этапы. Отметки вносит инструктор.</p>
+     <div class="progression-toolbar"><span>✓ Этап пройден <span class="legend-pending">○ Ожидает прохождения</span></span><button id="refresh-progression" class="text-button">ОБНОВИТЬ</button></div>
+     <p id="progression-status" role="status"></p>
+     <div id="certification-list"></div>
+    </section>
     <section id="test-selection" class="selection" hidden>
-     <p class="eyebrow">РЕЕСТР СЕРТИФИКАЦИЙ</p>
+     <button class="text-button home-back">← ГЛАВНОЕ МЕНЮ</button><p class="eyebrow">РЕЕСТР СЕРТИФИКАЦИЙ</p>
      <h1 id="selection-title" tabindex="-1">Выберите тест</h1>
      <p class="instruction">Выберите курс, затем укажите данные сотрудника.</p>
      <div id="test-list" class="test-list"></div>
