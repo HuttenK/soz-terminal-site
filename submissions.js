@@ -2,7 +2,7 @@ let submissionId=null,submissionPayload=null,examSession=null;
 function addSubmissionControls(container){
  if(!employee||!records.every(Boolean))return;
  if(!submissionId)submissionId=crypto.randomUUID();
- const payload={id:submissionId,sessionToken:examSession,testCode:selectedTest.code,revision:window.QUIZ_REVISION,employeeNumber:employee.number,identificationCode:employee.code,answers:records.map((r,i)=>({questionId:data[i].id,selected:r.selected}))};
+ const payload={id:submissionId,sessionToken:examSession,testCode:selectedTest.code,revision:quizRevision,employeeNumber:employee.number,identificationCode:employee.code,answers:records.map((r,i)=>({questionId:data[i].id,selected:r.selected}))};
  const area=document.createElement('section');area.className='submission-area';
  const notice=document.createElement('p');notice.textContent='Результат автоматически отправляется инструктору.';
  const status=document.createElement('p');status.setAttribute('role','status');
