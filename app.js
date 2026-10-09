@@ -20,7 +20,7 @@ function art(n){
  const changed=image.getAttribute('src')!==src;
  image.src=src;image.alt=reaction?descriptions[n==='up'?10:11]:q.alt;
  image.classList.toggle('final-scene',!reaction);image.classList.toggle('sprite-sheet',!reaction);
- image.dataset.scene=reaction?n:(selectedTest?.code==='КПСИ'?'kpsi-':'')+q.id;
+ image.dataset.scene=reaction?n:(selectedTest?.spritePrefix||'')+q.id;
  if(changed)image.decode().then(()=>{if(image.getAttribute('src')===src&&reaction)reveal(image,8);}).catch(()=>{});
 }
 function activateQuiz(quiz){
@@ -59,7 +59,7 @@ function showSelection(focus=false){
 function selectTest(test){
  selectedTest=test;screen='enrollment';$('test-selection').hidden=true;$('enrollment').hidden=false;$('test-category').textContent=test.code+' / ПРИОРИТЕТ '+test.priority;$('test-title').textContent=test.title;$('test-description').textContent=test.description;
  document.querySelector('.brand>div').firstChild.textContent=test.code;$('mode-label').textContent='ДАННЫЕ СОТРУДНИКА';
- $('enrollment-status').textContent=test.available?(test.code==='КПСИ'?'5 случайных вопросов по теории и 5 ситуаций в случайном порядке. ':'5 вопросов и 5 ситуаций. ')+'В каждом задании выберите один ответ. После завершения результат автоматически отправится инструктору.':'Вопросы для этого теста ещё не добавлены. Начало тестирования пока недоступно.';
+ $('enrollment-status').textContent=test.available?(test.randomized?'5 случайных вопросов по теории и 5 ситуаций в случайном порядке. ':'5 вопросов и 5 ситуаций. ')+'В каждом задании выберите один ответ. После завершения результат автоматически отправится инструктору.':'Вопросы для этого теста ещё не добавлены. Начало тестирования пока недоступно.';
  $('start-test').disabled=!test.available;$('start-test').textContent=test.available?'НАЧАТЬ ТЕСТ':'ТЕСТ ГОТОВИТСЯ';$('test-title').focus();reveal($('enrollment'));beep();
 }
 $('selection-back').onclick=()=>showSelection(true);
@@ -83,7 +83,7 @@ $('employee-form').addEventListener('submit',async event=>{
  activateQuiz(admission.quiz);
  employee=identity;examSession=admission.sessionToken;submissionId=admission.submissionId;$('test-access-key').value='';
  $('participant').textContent='СОТРУДНИК: '+employee.number+' / ИДЕНТИФИКАЦИОННЫЙ КОД: '+employee.code;
- document.querySelector('.status-strip span:last-child').textContent=test.code==='КПСИ'?'КПСИ / ТЕОРИЯ · СИТУАЦИИ':'СОЗ / ГА · ГК';document.querySelector('footer>span:last-child').textContent='1–5: ВЫБОР / ENTER: ПОДТВЕРДИТЬ';
+ document.querySelector('.status-strip span:last-child').textContent=test.randomized?test.code+' / ТЕОРИЯ · СИТУАЦИИ':'СОЗ / ГА · ГК';document.querySelector('footer>span:last-child').textContent='1–5: ВЫБОР / ENTER: ПОДТВЕРДИТЬ';
  records.fill(null);index=0;selected=null;render(true);beep();
 });
 
